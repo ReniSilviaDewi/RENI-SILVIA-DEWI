@@ -11,7 +11,7 @@ const inputNumber = (number) => {
     if (currentNumber === "0") {
     currentNumber = number;
     } else {
-    currentNumber = number;
+    currentNumber += number;
     };
 };
 
@@ -24,8 +24,6 @@ const numbers = document.querySelectorAll(".number");
     });
 });
 
-const operators = document.querySelectorAll(".operator");
-
 const inputOperator = (operator) => {
     if (calculationOperator ===""){
         prevNumber = currentNumber;
@@ -34,9 +32,12 @@ const inputOperator = (operator) => {
     currentNumber= "0";
 };
 
+const operators = document.querySelectorAll(".operator,.percentage");
+
 operators.forEach ((operator) => {
     operator.addEventListener("click", (event) => {
     inputOperator(event.target.value);
+    updateScreen(prevNumber + calculationOperator);
     });
 });
 
@@ -54,6 +55,9 @@ const calculate = () => {
         break;
         case '/':
         result = parseFloat(prevNumber) / parseFloat(currentNumber);
+        break;
+        case '%':
+        result = parseFloat(prevNumber) / 100;
         break;
         default:
         return;
@@ -94,4 +98,3 @@ decimal.addEventListener("click", (event) => {
 inputDecimal(event.target.value);
 updateScreen(currentNumber);
 });
-
